@@ -1,0 +1,23 @@
+<ng-container *ngIf="allSelectedAlbums$ | async as allSelectedAlbums">
+
+    <mat-card *ngIf="!allSelectedAlbums.length; else haveAlbums">
+        No albums selected yet!
+    </mat-card>
+
+    <ng-template #haveAlbums>
+        <mat-list>
+            <h3>Albums:</h3>
+            <mat-form-field>
+                <mat-label>Clearable input</mat-label>
+                <input matInput [(ngModel)]="search">
+            </mat-form-field>
+            <ng-container *ngFor="let album of allSelectedAlbums | filterAlbums: search; let last = last">
+                <mat-card>
+                    <mat-list-item (click)="albumSelected = album">{{album.title}}</mat-list-item>
+                    <mat-divider *ngIf="!last"></mat-divider>
+                    <img *ngIf="albumSelected?.id === album.id" mat-card-image src="data:image/png;base64,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">
+                </mat-card>
+            </ng-container>
+        </mat-list>
+    </ng-template>
+</ng-container>

@@ -1,0 +1,8 @@
+<mat-form-field appearance="fill">
+    <mat-label>All Users</mat-label>
+    <mat-select [formControl]="userName">
+        <mat-option *ngFor="let user of allUsers" [value]="user">
+            {{user.name}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
